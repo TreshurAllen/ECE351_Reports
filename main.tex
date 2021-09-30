@@ -1,0 +1,183 @@
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+%                                                             %
+% Treshur Allen                                               %
+% ECE 351 - 52                                                %
+% Lab 4                                                       %
+% September 30, 2021                                          %
+% This file contains the tex file for lab 4 with report and   %
+% questions.                                                  %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+
+\title{ECE351 Lab 4 Report}
+\author{Treshur Allen }
+\date{September 30, 2021}
+
+\begin{document}
+
+\pagebreak
+
+\maketitle
+
+\section{Part 1:}
+
+\subsection{Description:}
+
+\begin{verbatim}
+Implement the code we previously developed to create new transfer functions 
+
+\end{verbatim}
+
+\subsection{Task 1 Code:}
+
+\begin{verbatim}
+def stepFunc(t):
+   
+    u = np.zeros(t.shape)
+    
+    for i in range(len(t)):
+        if t[i] <= 0:  
+            u[i] = 0
+        else:
+            u[i] = 1
+    return u
+
+def h1(t):
+    h = np.exp(-2*t) * (stepFunc(t) - stepFunc(t - 3))
+    return h
+
+def h2(t):
+    h = stepFunc(t - 2) - stepFunc(t - 6)
+    return h
+
+def h3(t):
+    h = np.sin((2*math.pi* 0.25) * t) * stepFunc(t)
+    return h
+\end{verbatim}
+
+\subsection{Explanation:}
+
+\begin{verbatim}
+    This code from task one part 1 is the user defined functions I 
+    created of the transfer functions defined in the lab manual.
+\end{verbatim}
+
+\maketitle
+
+\section{Part 2:}
+
+\subsection{Description:}
+
+\begin{verbatim}
+The purpose of this part of the lab was to show the
+convolution of our new transfer functions and implementing the 
+convolution function we created previously.
+
+\end{verbatim}
+
+\subsection{Code for plots and convolution function:}
+
+\begin{verbatim}
+   #---------------------PLOTS-------------------------
+
+plt.figure(figsize = (10, 10))
+plt.subplot(3, 1, 1)
+plt.plot(t, h1(t))
+plt.grid()
+plt.ylabel('H1')
+plt.title('Part 1 Task 2')
+
+
+plt.subplot(3 , 1, 2)
+plt.plot(t, h2(t))
+plt.grid()
+plt.ylabel('H2')
+
+plt.subplot(3 , 1, 3)
+plt.plot(t, h3(t))
+plt.grid()
+plt.ylabel('H3')
+plt.xlabel('t')
+#plt.show()
+
+#-----------PART 2 FUNCTIONS/CONVOLUTION ----------------
+steps = 1e-2 #step size
+time = np.arange(2*t[0], 2*t[len(t)-1]+steps, steps)
+
+def conv(f1,f2):
+  Nf1 = len(f1)
+  Nf2 = len(f2)
+  f1Extended = np.append(f1,np.zeros((1,Nf2-1)))
+  f2Extended = np.append(f2,np.zeros((1,Nf1-1))) 
+  #these append function make it so the arrays have the same number
+  #of elements to avoid errors 
+  result = np.zeros(f1Extended.shape) #shape is the array
+
+  for i in range(Nf2+Nf1-2):
+        result[i] = 0
+        for j in range(Nf1):
+            if(i-j+1>0):
+                try:
+                    result[i] += f1Extended[j]*f2Extended[i-j+1]
+                except:
+                        print(i,j)
+  return result
+
+
+h1 = h1(t)
+h2 = h2(t)
+h3 = h3(t)
+u = stepFunc(t)
+
+#scipy.signal.convolve(h1,u)
+
+
+plt.figure(figsize = (10, 10))
+plt.subplot(3, 1, 1)
+plt.plot(time, conv(h1, u))
+plt.grid()
+plt.ylabel('H1 Convolution')
+plt.title('Part 2 Task 1')
+#plt.show()
+
+plt.subplot(3 , 1, 2)
+plt.plot(time, conv(h2, u))
+plt.grid()
+plt.ylabel('H2 Convolution')
+plt.xlabel('t')
+
+plt.subplot(3 , 1, 3)
+plt.plot(time,conv(h3, u))
+plt.grid()
+plt.ylabel('H3 Convolution')
+plt.xlabel('t')
+#plt.show()
+
+\end{verbatim}
+
+\subsection{Explanation:}
+
+\begin{verbatim}
+The code above has the plots I've created to show the convolutions. 
+The main thing to focus on in this code is having to define a new time variable 
+this was needed because the arrays of the convolution functions are doubled therefore 
+in order to plot, our functions need to have the same sized array.
+\end{verbatim}
+
+\pagebreak
+
+\maketitle
+
+\section{Questions:}
+
+\subsection{Leave any feed back:}
+
+\begin{verbatim}
+
+\end{verbatim}
+
+
+\end{document}
