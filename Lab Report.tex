@@ -1,0 +1,359 @@
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+%                                                             %
+% Treshur Allen                                               %
+% ECE 351 - 52                                                %
+% Lab 9                                                       %
+% November 4, 2021                                            %
+% This file contains the tex file for lab 8 with report and   %
+% questions.                                                  %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% DOCUMENT PREAMBLE %%%
+\documentclass[12pt]{report}
+\usepackage[english]{babel}
+%\usepackage{natbib}
+\usepackage{url}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0,0,0.95}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codeblue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codegreen},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
+
+\setmarginsrb{3 cm}{2.5 cm}{3 cm}{2.5 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm}
+
+\title{Lab 9}								
+% Title
+\author{ Treshur Allen}						
+% Author
+\date{November 4, 2021}
+% Date
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\theauthor}
+\lhead{\thetitle}
+\cfoot{\thepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+	\centering
+    \vspace*{0.5 cm}
+   % \includegraphics[scale = 0.075]{bsulogo.png}\\[1.0 cm]	% University Logo
+\begin{center}    \textsc{\Large   ECE 351 - Section \#52 }\\[2.0 cm]	\end{center}% University Name
+	\textsc{\Large Fast Fourier Transform  }\\[0.5 cm]				% Course Code
+	\rule{\linewidth}{0.2 mm} \\[0.4 cm]
+	{ \huge \bfseries \ Lab 9}\\
+	\rule{\linewidth}{0.2 mm} \\[1.5 cm]
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft} \large
+		%	\emph{Submitted To:}\\
+		%	Name\\
+          % Affiliation\\
+           %contact info\\
+			\end{flushleft}
+			\end{minipage}~
+			\begin{minipage}{0.4\textwidth}
+            
+			\begin{flushright} \large
+			\emph{Submitted By :} \\
+			Treshur Allen  
+		\end{flushright}
+           
+	\end{minipage}\\[2 cm]
+	
+	%\includegraphics[scale = 0.5]{PICMathLogo.png}
+    
+    
+    
+    
+	
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\thesection}{\arabic{section}}
+\section{Introduction}
+ 
+The purpose of this lab was to learn how to use the Fast Fourier Transform in python, this is expanding on our knowledge we've acquired thus far about our Fourier theorems. We were given the code for  scipy . fftpack . fft ( x ) which was the greatest help for creating the values we needed to successfully create our plots. 
+
+\section{Equations}
+
+Here are the equations used in the designated sections. all these functions were used in the fast Fourier sequence to produce the magnitude and phase graphs along with their zoomed in portions to be seen at the end of the results section.  
+
+\subsection{Task 1}
+
+\begin{equation*}
+x1 = cos(2\cdot \pi \cdot t)
+\end{equation*}
+
+\subsection{Task 2}
+
+\begin{equation*}
+x1 = 5 \cdot cos(2\cdot \pi \cdot t)
+\end{equation*}
+
+\subsection{Task 3}
+
+\begin{equation*}
+x3 = 2cos((2π · 2t) − 2) + sin^2((2π · 6t) + 3)
+\end{equation*}
+
+\section{Methodology}
+\subsection{Tasks 1 - 3}
+The first thing I did was impliment the fast Fourier pacage given in the lab manual which after some edititng mine looked like the following listing:
+\begin{lstlisting}[language=Python]
+fs = 100
+
+def Fastft(x, fs):
+    N = len(x) #find length of signal
+    X_fft = scipy.fftpack.fft(x) # perform the fast fourier transform
+    X_fft_shifted = scipy.fftpack.fftshift(X_fft) #shift zero freq components
+                                                  #to the center of the spectrum
+    
+    freq = np.arange(-N/2, N/2)*fs/N # compute the frequencies for the output
+    # signal , (fs is the sampling frequency and
+    # needs to be defined previously in your code
+    
+    X_mag = np.abs(X_fft_shifted)/N #compute the magnitudes of the signal
+    X_phi = np.angle(X_fft_shifted) #compute the phases of the signal 
+    return freq, X_mag, X_phi
+    #--------- END OF THE FUNCTION--------------
+
+\end{lstlisting}
+
+The next step was to figure out how to get the plots to look as they do in the example given. I did this by using the defined Fastft() function we defined and setting it equal to the returned parameters. After having all the numbers ready to go I sectioned the subplots by creating a grid spec to place the images where I liked. That code looks like this:
+
+\begin{lstlisting}[language=Python]
+t = np.linspace(0, 2, 100)
+x1 = np.cos(2*np.pi*t)
+
+freq1, X_mag1, X_phi1 = Fastft(x1, fs)
+
+
+
+# need to use stem to get these plots to be correct
+
+fig = plt.figure(figsize = (10, 10))
+gs = plt.GridSpec(nrows=3, ncols=2)
+
+
+fig.add_subplot(gs[0, :])
+#plt.subplot(5, 1, 1)
+plt.plot(t, x1 )
+plt.grid()
+plt.ylabel('x2(t)')
+plt.xlabel('t[s]')
+plt.title('Task 1 - cos(2pit)')
+
+fig.add_subplot(gs[1, 0])
+#plt.subplot(5, 1, 2)
+plt.stem(freq1, X_mag1)
+plt.grid()
+plt.ylabel('|x(f)|')
+
+\end{lstlisting}
+
+\subsection{Task 4}
+When it came to repeating the tasks I had already done I simply changed the Fastft with the Xmag being false if greater than 1e-10. than ran my code again to get the next 15 plots. This is what I changed the Fastft function to:
+
+\begin{lstlisting}[language=Python]
+def Fastft(x, fs):
+    N = len(x) #find length of signal
+    X_fft = scipy.fftpack.fft(x) # perform the fast fourier transform
+    X_fft_shifted = scipy.fftpack.fftshift(X_fft) #shift zero freq components
+                                                  #to the center of the spectrum
+    
+    freq = np.arange(-N/2, N/2)*fs/N # compute the frequencies for the output
+    # signal , (fs is the sampling frequency and
+    # needs to be defined previously in your code
+    
+    X_mag = np.abs(X_fft_shifted)/N #compute the magnitudes of the signal
+    
+    #for i in range(1, N+1, 1):
+    if X_mag[0] < 1e-10:
+        X_phi = 0
+    else:
+        X_phi = np.angle(X_fft_shifted) #compute the phases of the signal 
+    return freq, X_mag, X_phi
+
+\end{lstlisting}
+
+\subsection{Task 5}
+For this part I made a new x4 value equal to the equation for the last lab and used my original Fastft function to produce the magnitude and phase graphs like tasks 1-3. this is what that section of code looks like with the code for the plots as well. 
+
+\begin{lstlisting}[language=Python]
+"""
+
+Psi3 = 0*x
+L = 15
+for l in range(1, L+1, 1):
+    Psi3 += (2 / (l * 3.14159)) * (1 - np.cos(l * 3.14159*x))
+"""
+    
+    
+x4 = (2 / (15 * 3.14159)) * (1 - np.cos(15 * 3.14159*t))
+
+freq4, X_mag4,X_phi4 = Fastft(x4, fs)
+
+
+
+# need to use stem to get these plots to be correct
+
+fig = plt.figure(figsize = (10, 10))
+gs = plt.GridSpec(nrows=3, ncols=2)
+
+
+fig.add_subplot(gs[0, :])
+#plt.subplot(5, 1, 1)
+plt.plot(t, x4 )
+plt.grid()
+plt.ylabel('x4(t)')
+plt.xlabel('t[s]')
+plt.title('Task 5 from lab 8')
+
+fig.add_subplot(gs[1, 0])
+#plt.subplot(5, 1, 2)
+plt.stem(freq4, X_mag4)
+plt.grid()
+plt.ylabel('|x(f)|')
+
+fig.add_subplot(gs[2, 0])
+#plt.subplot(5, 1, 3)
+plt.stem(freq4, X_phi4)
+plt.grid()
+plt.ylabel('/_x(f)')
+plt.xlabel('f[Hz]')
+
+fig.add_subplot(gs[1, 1])
+plt.xlim(-5,5)
+plt.stem(freq4, X_mag4)
+plt.grid()
+#plt.ylabel('|x(f)|')   ZOOMED MAG
+
+fig.add_subplot(gs[2, 1])
+plt.xlim(-5,5)
+plt.stem(freq4, X_phi4)
+plt.grid()
+#plt.ylabel('/_x(f)')   ZOOMED PHASE
+plt.xlabel('f[Hz]')
+
+\end{lstlisting}
+
+\section{Results}
+\subsection{Explanation}
+The results for this lab was the 35 plots (7 figures) unfortunately when using my second Fastft() function I had trouble finding how to check if the magnitude Xmag was less than 1e-10. other than that my graphs came in good resolution. here they are with titles of each graph for easy spotting. 
+
+
+\subsection{Plots}
+\begin{figure}[]
+
+includegraphics[scale=0.5]{task1.JPG} 
+
+  caption{This is the first 5 plots for task 1}
+
+\end{figure}
+\begin{figure}[]
+
+includegraphics[scale=0.5]{task2.JPG} 
+
+  caption{This is the next 5 plots for task 2}
+
+\end{figure}
+\begin{figure}[]
+
+includegraphics[scale=0.5]{task3.JPG} 
+
+  caption{This is the next 5 plots for task 3}
+
+\end{figure}
+\begin{figure}[]
+
+includegraphics[scale=0.5]{task5.JPG} 
+
+  caption{This is the last 5 plots for task 5}
+
+\end{figure}
+\section{Error Analysis}
+
+When working through this lab I only had an issue manipulating the fastft() function for task 4. I tried to have a for loop that compared each value of the magnitude array but there was an error. 
+
+\section{Questions}
+
+1. What happens if fs is lower? If it is higher? fs in your report must span a few orders of
+magnitude.
+I tested fs = 10000 and 50 to see what would happen to my graphs and I found that as you increase fs the magnitude 
+
+2. What difference does eliminating the small phase magnitudes make?
+By getting rid of the small phase magnitudes it opens up the graph so it is easier to see whats going on at the phases we are actually concerned with.
+
+3. Verify your results from Tasks 1 and 2 using the Fourier transforms of cosine and sine.
+Explain why your results are correct. You will need the transforms in terms of Hz, not rad/s.
+
+by looking at the transforms we can guess what type of filter it might be and therefore have an idea of what our graphs will look like by looking at the transfer functions for task one and two we can guess that they will both be bandpass type filters they only differ in a magnitude. 
+
+4. Leave any feedback on the clarity of lab tasks, expectations, and deliverables.
+    I have nothing to add, I enjoyed this lab. :)
+
+\section{Conclusion}
+Overall this lab was a good way to learn how to use our fast Fourier function and how to organize our plots. I believe I have acquired some helpful skills. 
+
+
+\newpage
+
+
+\begin{thebibliography}{111}
+
+  \bibitem{ACMT}
+https://docs.scipy.org/doc/scipy-0.14.0/reference/index.html
+
+
+
+
+\end{thebibliography}
+\end{document}
