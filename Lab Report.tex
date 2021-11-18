@@ -1,0 +1,190 @@
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+%                                                             %
+% Treshur Allen                                               %
+% ECE 351 - 52                                                %
+% Lab 11                                                      %
+% November 18, 2021                                           %
+% This file contains the tex file for lab 11 with report and  %
+% questions.                                                  %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% DOCUMENT PREAMBLE %%%
+\documentclass[12pt]{report}
+\usepackage[english]{babel}
+%\usepackage{natbib}
+\usepackage{url}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeblue}{rgb}{0,0,0.95}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codeblue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codegreen},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
+
+\setmarginsrb{3 cm}{2.5 cm}{3 cm}{2.5 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm}
+
+\title{Lab 11}								
+% Title
+\author{ Treshur Allen}						
+% Author
+\date{November 18, 2021}
+% Date
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\theauthor}
+\lhead{\thetitle}
+\cfoot{\thepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+	\centering
+    \vspace*{0.5 cm}
+   % \includegraphics[scale = 0.075]{bsulogo.png}\\[1.0 cm]	% University Logo
+\begin{center}    \textsc{\Large   ECE 351 - Section \#52 }\\[2.0 cm]	\end{center}% University Name
+	\textsc{\Large Z Transform Operations }\\[0.5 cm]				% Course Code
+	\rule{\linewidth}{0.2 mm} \\[0.4 cm]
+	{ \huge \bfseries \ Lab 11}\\
+	\rule{\linewidth}{0.2 mm} \\[1.5 cm]
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft} \large
+		%	\emph{Submitted To:}\\
+		%	Name\\
+          % Affiliation\\
+           %contact info\\
+			\end{flushleft}
+			\end{minipage}~
+			\begin{minipage}{0.4\textwidth}
+            
+			\begin{flushright} \large
+			\emph{Submitted By :} \\
+			Treshur Allen  
+		\end{flushright}
+           
+	\end{minipage}\\[2 cm]
+	
+	%\includegraphics[scale = 0.5]{PICMathLogo.png}
+    
+    
+    
+    
+	
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\thesection}{\arabic{section}}
+\section{Introduction}
+ 
+The purpose of this lab was to test some of the operations of our z transformations and use the skills we've learned thus far. We will be doing this by first hand writing our z transformed transfer function of the equation given to us, then using partial fraction find the time domain representation of that transfer function. The last two task we will compare our hand written calculations with what our program comes up with. if we are correct, there should be no derivation. 
+
+\section{Equations}
+
+Here are the equations produced for their corresponding tasks:
+
+\subsection{Task 1}
+\begin{equation*}
+H(z) = \frac{2 - \frac{40}{z} + x(-1)}{1 - \frac{10}{z} - 10y(-1) + \frac{16}{z^2} + \frac{16}{z}\cdot y(-1) + 16y(-2)}
+\end{equation*}
+
+\subsection{Task 2}
+\begin{equation*}
+h(k) = \frac{-48}{k-.5} + \frac{8}{k-.125}
+\end{equation*}
+
+\section{Methodology}
+The first thing to do for task 1 was to take the z transformations of both sides of the equals sign after I isolated both the input and output variables. Then I separated out the inputs and outputs so I could divide accordingly to get our transfer function of outputs / inputs. 
+
+\section{Results}
+The results for this lab were the printed output of the transfer function and the plots from tasks 4 and 5. 
+
+\subsection{Task 1 Output:}
+\includegraphics{task 1.JPG}
+% caption{This is the output of the Transferfunction.}
+\subsection{Task 3 Output:}
+%caption{This is the output of the Partial Fraction.}
+\includegraphics{task 3.JPG}
+
+\subsection{Task 4 Output:}
+%caption{This is the output graph of the z plane.}
+\includegraphics{task 4.JPG}
+
+\subsection{Task 5 Output:}
+%caption{This is the output graph of the magnitude and phase.}
+\includegraphics{task 5.JPG}
+
+\section{Error Analysis}
+
+When working through this lab I had a sight issue with trying to incorporate the z into the num and den variables rather than just making the arrays.
+
+\section{Questions}
+
+1. Looking at the plot generated in Task 4, is H(z) stable? Explain why or why not.
+I would say that it is unstable because, it being a circle, has values in all quadrants sable and unstable. Therefore if you have any part being unstable, it makes the whole system unstable. 
+
+2. Leave any feedback on the clarity of lab tasks, expectations, and deliverables.
+    I have nothing to add, I enjoyed this lab. :)
+
+\section{Conclusion}
+I can easily conclude that this was a great lab to test our z transformation skills. And for me personally I was finally able to get my graphics to display correctly. 
+
+
+\newpage
+
+
+\begin{thebibliography}{111}
+
+  \bibitem{ACMT}
+https://docs.scipy.org/doc/scipy-0.14.0/reference/index.html
+
+
+
+
+\end{thebibliography}
+\end{document}
