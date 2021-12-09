@@ -3,8 +3,8 @@
 % Treshur Allen                                               %
 % ECE 351 - 52                                                %
 % Lab 11                                                      %
-% November 18, 2021                                           %
-% This file contains the tex file for lab 11 with report and  %
+% December 9, 2021                                            %
+% This file contains the tex file for lab 12 with report and  %
 % questions.                                                  %
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
@@ -59,7 +59,7 @@
 % Title
 \author{ Treshur Allen}						
 % Author
-\date{November 18, 2021}
+\date{December 9, 2021}
 % Date
 
 \makeatletter
@@ -83,9 +83,9 @@
     \vspace*{0.5 cm}
    % \includegraphics[scale = 0.075]{bsulogo.png}\\[1.0 cm]	% University Logo
 \begin{center}    \textsc{\Large   ECE 351 - Section \#52 }\\[2.0 cm]	\end{center}% University Name
-	\textsc{\Large Z Transform Operations }\\[0.5 cm]				% Course Code
+	\textsc{\Large Final Lab }\\[0.5 cm]				% Course Code
 	\rule{\linewidth}{0.2 mm} \\[0.4 cm]
-	{ \huge \bfseries \ Lab 11}\\
+	{ \huge \bfseries \ Lab 12}\\
 	\rule{\linewidth}{0.2 mm} \\[1.5 cm]
 	
 	\begin{minipage}{0.4\textwidth}
@@ -122,57 +122,79 @@
 \renewcommand{\thesection}{\arabic{section}}
 \section{Introduction}
  
-The purpose of this lab was to test some of the operations of our z transformations and use the skills we've learned thus far. We will be doing this by first hand writing our z transformed transfer function of the equation given to us, then using partial fraction find the time domain representation of that transfer function. The last two task we will compare our hand written calculations with what our program comes up with. if we are correct, there should be no derivation. 
+This being the final lab, its main purpose was to test all the skills we were to acquire throughout the 
+course. The first thing that was different and stood out was that the tasks and prompt were more open ended,
+we were being tested on how we could answer these problems with certain parameters with the knowledge we gained. 
 
 \section{Equations}
 
-Here are the equations produced for their corresponding tasks:
+When it comes to the equations used in this lab the main ones I used that I came up with was the 
+equation format for a band pass filter, how to calculate magnitude and phase. 
 
-\subsection{Task 1}
+\subsection{Band Pass}
 \begin{equation*}
-H(z) = \frac{2 - \frac{40}{z} + x(-1)}{1 - \frac{10}{z} - 10y(-1) + \frac{16}{z^2} + \frac{16}{z}\cdot y(-1) + 16y(-2)}
+\frac{1/RC\cdot S}{S^2 + 1/RC\cdot S + 1/LC }
 \end{equation*}
 
-\subsection{Task 2}
+\subsection{Magnitude}
 \begin{equation*}
-h(k) = \frac{-48}{k-.5} + \frac{8}{k-.125}
+20*log((w / (R*C)) / sqrt( w^4 + ((1/R*C)^2 - (2/C*C))*w^2 + (1/L*C)^2))
+\end{equation*}
+
+\subsection{Phase}
+\begin{equation*}
+(pi / 2) - arctan( (w /R*C)/(-w^2 + 1/L*C))
 \end{equation*}
 
 \section{Methodology}
-The first thing to do for task 1 was to take the z transformations of both sides of the equals sign after I isolated both the input and output variables. Then I separated out the inputs and outputs so I could divide accordingly to get our transfer function of outputs / inputs. 
+A lot of my methodology is outlined within the lab itself, but in summary the first thing I did was add the 
+code that was provided in the appendix, with a little modification I got the correct graph for the sample frequency and 
+next created my RLC circuit for the filter. I modeled this after a previous lab where we used a band pass filter to get our 
+set range which was a combination of what could be considered in between high and low frequencies. My next plan of action was 
+to start working on the other task requirements down the line working task by task. Again most of the code I used was based on 
+what I had accomplished in previous labs, like the FFT and Bode plot functions. Below is a photo of the hand written calculations I 
+performed to get my values for the filter. 
+
+\subsection{Band Pass Calculations:}
+\includegraphics{hand_calc_pt1.JPG}
+\includegraphics{hand_calc_pt2.JPG}
 
 \section{Results}
-The results for this lab were the printed output of the transfer function and the plots from tasks 4 and 5. 
+The results for this lab was the graphs that were produced by each of the tasks which are provided below:
 
-\subsection{Task 1 Output:}
-\includegraphics{task 1.JPG}
-% caption{This is the output of the Transferfunction.}
-\subsection{Task 3 Output:}
-%caption{This is the output of the Partial Fraction.}
-\includegraphics{task 3.JPG}
+\subsection{Input Signal:}
+\includegraphics{input.png}
 
-\subsection{Task 4 Output:}
-%caption{This is the output graph of the z plane.}
-\includegraphics{task 4.JPG}
+\subsection{Magnitude and Phase:}
+\includegraphics{mag_phi.JPG}
 
-\subsection{Task 5 Output:}
-%caption{This is the output graph of the magnitude and phase.}
-\includegraphics{task 5.JPG}
+\subsection{Bode plot:}
+\includegraphics{bode.png}
+
+\subsection{Final Filter:}
+\includegraphics{final.png}
 
 \section{Error Analysis}
 
-When working through this lab I had a sight issue with trying to incorporate the z into the num and den variables rather than just making the arrays.
+When I first started working on this lab I had the most trouble on understanding the first task which after looking 
+through the other tasks I realized I was over thinking what was being asked. After working through the files that were provided outside the lab manual it helped provide some clarity on where to start and what the purpose / end result of the lab should be. 
 
 \section{Questions}
 
-1. Looking at the plot generated in Task 4, is H(z) stable? Explain why or why not.
-I would say that it is unstable because, it being a circle, has values in all quadrants sable and unstable. Therefore if you have any part being unstable, it makes the whole system unstable. 
+1. Earlier this semester, you were asked what you personally wanted to get out of taking this
+course. Do you feel like that personal goal was met? Why or why not?
+I feel that I have learned great ways to post the work that I've done so my future employers can see, 
+I also feel that my python coding skills have been greatly enhanced. 
 
-2. Leave any feedback on the clarity of lab tasks, expectations, and deliverables.
-    I have nothing to add, I enjoyed this lab. :)
+2. Please fill out the course feedback survey, I will read every word and very much appreciate
+the feedback.
+**thumbs up**
+
+3. Good luck in the rest of your education and career!
+Thank you Kate!
 
 \section{Conclusion}
-I can easily conclude that this was a great lab to test our z transformation skills. And for me personally I was finally able to get my graphics to display correctly. 
+I can conclude that this lab was by far more difficult than any of the other we had done thus far, but at the same time I feel that it was a challenging final test for us to really see if we can incorporate what we had learned. 
 
 
 \newpage
